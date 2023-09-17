@@ -1,0 +1,140 @@
+% Created 2023-04-29 Sat 23:36
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{memoir}
+% \usepackage{graphicx}
+\usepackage{ccicons}
+\usepackage{hyperref}
+\usepackage{lettrine}
+\usepackage{suffix}
+% \usepackage{authblk}
+\usepackage{caption}
+% \graphicspath{{graphics/}}
+
+\setstocksize{8.5in}{5.5in}
+\settrimmedsize{8in}{5in}{*}
+\settypeblocksize{35\onelineskip}{23pc}{*}
+
+\setlength{\trimtop}{.25in}
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+\setlrmargins{*}{0.5in}{*}
+\setulmargins{3.5\onelineskip}{*}{*}
+\setheadfoot{\onelineskip}{3\onelineskip}
+\setheaderspaces{2.0\onelineskip}{*}{*}
+
+\checkandfixthelayout[lines]
+
+\nouppercaseheads{}
+\makepagestyle{pews}
+\makeheadrule{pews}{\textwidth}{\normalrulethickness}
+\makeevenhead{pews}{\leftmark}{}{}
+\makeoddhead{pews}{}{}{\rightmark}
+\makeevenfoot{pews}{\thepage}{}{}
+\makeoddfoot{pews}{}{}{\thepage}
+\makepsmarks{pews}{%
+    \createmark{chapter}{right}{nonumber}{}
+  }
+
+\makepagestyle{chapter}
+\makeoddfoot{chapter}{}{}{\thepage}
+\makeevenfoot{chapter}{\thepage}{}{}
+
+\makepagestyle{part}
+\makeoddfoot{part}{}{}{}
+
+\renewcommand*{\chapternumberline}[1]{}
+\renewcommand*{\partnumberline}[1]{}
+\setlength{\cftbeforepartskip}{0.3in}
+\setlength{\cftbeforechapterskip}{0.6em}
+
+\renewcommand*{\cftpartformatpnum}{}
+\renewcommand*{\cftpartfont}{\scshape\MakeTextLowercase}
+\cftpagenumbersoff{part}
+
+\renewcommand*{\printpartname}{}
+\renewcommand*{\printpartnum}{}
+\renewcommand*{\printchaptername}{}
+\renewcommand*{\printchapternum}{}
+\setlength\beforechapskip{-2em}
+\setlength\midchapskip{1em}
+\setlength\prechapterprecisshift{0em}
+\setlength\afterchapskip{2em}
+\setlength\beforesecskip{1em}
+
+\renewcommand*{\contentsname}{In this issue:}
+\renewcommand*{\aftertoctitle}{\par\nobreak\vskip 0.8em}
+
+% snippet from https://tex.stackexchange.com/questions/156862/displaying-author-for-each-chapter-in-book#156865
+% Requires usepackage{suffix}
+\newcommand\chapterauthor[1]{\authortoc{#1}\printchapterauthor{#1}}
+\WithSuffix\newcommand\chapterauthor*[1]{\printchapterauthor{#1}}
+
+\makeatletter
+\newcommand{\printchapterauthor}[1]{%
+  {\parindent0pt\vspace*{0pt}%
+  \linespread{1.1}\large\scshape#1%
+  \par\nobreak\vspace*{17pt}}
+  \@afterheading%
+}
+\newcommand{\authortoc}[1]{%
+  \addtocontents{toc}{\vskip-8pt}%
+  \addtocontents{toc}{%
+    \protect\contentsline{chapter}%
+    {\hskip1.0em\mdseries\scshape\protect\scriptsize#1}{}{}}
+  \addtocontents{toc}{\vskip5pt}%
+}
+
+% Special footnote in chapter name
+\newcommand{\chapterfootnote}[1]{%
+    \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+    \footnotemark{}%
+    \footnotetext{#1}%
+    \setcounter{footnote}{0}% 
+    \renewcommand{\thefootnote}{\arabic{footnote}}% <-- restore footnote numbering
+}
+\makeatother
+
+\ifdraftdoc
+  \makeoddfoot{pews}{}{DRAFT: \today}{\thepage}
+  \makeevenfoot{pews}{\thepage}{DRAFT: \today}{}
+  \makeoddfoot{chapter}{}{DRAFT: \today}{\thepage}
+  \makeevenfoot{chapter}{\thepage}{DRAFT: \today}{}
+  \makeoddfoot{part}{}{DRAFT: \today}{\thepage}
+  \makeevenfoot{part}{\thepage}{DRAFT: \today}{}
+  \makeoddfoot{empty}{}{DRAFT: \today}{\thepage}
+  \makeevenfoot{empty}{\thepage}{DRAFT: \today}{}
+\fi
+
+\pagestyle{pews}{}
+
+\begin{document}
+
+\tableofcontents*
+\thispagestyle{empty}
+\include{includes/pews-editorial_1.tex}
+
+\cleardoublepage{}
+\part{Essays}
+\makeevenhead{pews}{\small ESSAYS}{}{}
+\include{includes/howard-joy.tex}
+\include{includes/loren-apocalypse.tex}
+\include{includes/tiago-free_culture.tex}
+\part{Poems}
+\openany{}
+\makeevenhead{pews}{\small POEMS}{}{}
+\include{includes/rudy-children.tex}
+\include{includes/donna-father.tex}
+\include{includes/hughes-the_weary_blues.tex}
+\include{includes/parker-rainy_night.tex}
+\openright{}
+\part{Stories}
+\makeevenhead{pews}{\small STORIES}{}{}
+\include{includes/dubois-the_comet.tex}
+
+\pagestyle{empty}
+
+\openany{}
+
+\include{includes/credits001.tex}
+
+\end{document}
